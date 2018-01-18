@@ -30,31 +30,6 @@ class ExampleTests: XCTestCase {
         scheduler = TestScheduler(initialClock: 0)
     }
 
-    func testRecordingAllEvents() {
-        let events = [next(10, "alpha"), completed(10)]
-        let source = scheduler.record(source: viewModel.elements)
-        scheduler.bind(events, to: viewModel.input)
-        scheduler.start()
-        XCTAssertEqual(source.events, events)
-    }
-
-    func testRecordingAllEventsPublishRelay() {
-        let events = [next(10, "alpha")]
-        let source = scheduler.record(source: viewModel.publishRelayElements)
-        scheduler.bind(events, to: viewModel.publishRelayInput)
-        scheduler.start()
-        XCTAssertEqual(source.events, events)
-    }
-
-    func testRecordingAllEventsBehaviorRelay() {
-        let events = [next(10, "alpha")]
-
-        let source = scheduler.record(source: viewModel.behaviorRelayElements)
-        scheduler.bind(events, to: viewModel.behaviorRelayInput)
-        scheduler.start()
-        XCTAssertEqual(source.events, [next(0, "start")] + events)
-    }
-
     func testSentNextEvent() {
         let events = [next(10, "alpha"), completed(10)]
         let source = scheduler.record(source: viewModel.elements)

@@ -11,6 +11,7 @@
 		CE8A15762010C1EB002F3519 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = CE8A15742010C1EB002F3519 /* README.md */; };
 		CE8A157C2010F628002F3519 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8A157B2010F628002F3519 /* Utils.swift */; };
 		CE8A157E2010FF79002F3519 /* NextAssertionSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8A157D2010FF79002F3519 /* NextAssertionSpecs.swift */; };
+		CE8A1582201107E4002F3519 /* SchedulerRecordingSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8A1581201107E3002F3519 /* SchedulerRecordingSpecs.swift */; };
 		E185A2F3F6B9092E014EA420 /* Pods_RxTestExtTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042BAE27D4E8C9BFC971C249 /* Pods_RxTestExtTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 		CE8A15782010E376002F3519 /* RxTestExtTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RxTestExtTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		CE8A157B2010F628002F3519 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		CE8A157D2010FF79002F3519 /* NextAssertionSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextAssertionSpecs.swift; sourceTree = "<group>"; };
+		CE8A1581201107E3002F3519 /* SchedulerRecordingSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulerRecordingSpecs.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 			children = (
 				CE8A15692010BB98002F3519 /* Info.plist */,
 				CE8A157D2010FF79002F3519 /* NextAssertionSpecs.swift */,
+				CE8A1581201107E3002F3519 /* SchedulerRecordingSpecs.swift */,
 				CE8A157B2010F628002F3519 /* Utils.swift */,
 				CE8A15782010E376002F3519 /* RxTestExtTests-Bridging-Header.h */,
 			);
@@ -233,6 +236,7 @@
 			files = (
 				CE8A157E2010FF79002F3519 /* NextAssertionSpecs.swift in Sources */,
 				CE8A157C2010F628002F3519 /* Utils.swift in Sources */,
+				CE8A1582201107E4002F3519 /* SchedulerRecordingSpecs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
