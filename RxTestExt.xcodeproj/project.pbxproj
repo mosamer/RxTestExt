@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		CE8A15752010C1EB002F3519 /* RxTestExt.podspec in Resources */ = {isa = PBXBuildFile; fileRef = CE8A15732010C1EB002F3519 /* RxTestExt.podspec */; };
 		CE8A15762010C1EB002F3519 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = CE8A15742010C1EB002F3519 /* README.md */; };
+		CE8A157C2010F628002F3519 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8A157B2010F628002F3519 /* Utils.swift */; };
+		CE8A157E2010FF79002F3519 /* NextAssertionSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8A157D2010FF79002F3519 /* NextAssertionSpecs.swift */; };
 		E185A2F3F6B9092E014EA420 /* Pods_RxTestExtTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042BAE27D4E8C9BFC971C249 /* Pods_RxTestExtTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -20,6 +22,9 @@
 		CE8A15692010BB98002F3519 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE8A15732010C1EB002F3519 /* RxTestExt.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RxTestExt.podspec; sourceTree = "<group>"; };
 		CE8A15742010C1EB002F3519 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		CE8A15782010E376002F3519 /* RxTestExtTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RxTestExtTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		CE8A157B2010F628002F3519 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		CE8A157D2010FF79002F3519 /* NextAssertionSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextAssertionSpecs.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +79,9 @@
 			isa = PBXGroup;
 			children = (
 				CE8A15692010BB98002F3519 /* Info.plist */,
+				CE8A157D2010FF79002F3519 /* NextAssertionSpecs.swift */,
+				CE8A157B2010F628002F3519 /* Utils.swift */,
+				CE8A15782010E376002F3519 /* RxTestExtTests-Bridging-Header.h */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -122,6 +130,7 @@
 				TargetAttributes = {
 					CE8A15612010BB98002F3519 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -181,6 +190,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-RxTestExtTests/Pods-RxTestExtTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxTest/RxTest.framework",
@@ -188,6 +198,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxTest.framework",
@@ -220,6 +231,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE8A157E2010FF79002F3519 /* NextAssertionSpecs.swift in Sources */,
+				CE8A157C2010F628002F3519 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,11 +356,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8ED38BB39D4AFBB625FF24BA /* Pods-RxTestExtTests.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rxswiftcommunity.RxTestExtTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/RxTestExtTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -357,11 +373,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B684AD5FEA09D71D4F815B3D /* Pods-RxTestExtTests.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rxswiftcommunity.RxTestExtTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/RxTestExtTests-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -60,9 +60,6 @@ class ExampleTests: XCTestCase {
         let source = scheduler.record(source: viewModel.elements)
         scheduler.bind(events, to: viewModel.input)
         scheduler.start()
-        assert(source).next()
-        assert(source).next(at: 10)
-        assert(source).next(times: 1)
 
         assert(source).next(at: 0, equal: "alpha")
     }

@@ -2,11 +2,26 @@ import XCTest
 import RxSwift
 import RxTest
 
-public struct Assertion<T> {
-    struct Location {
-        let file: StaticString
-        let line: UInt
+struct Location {
+    let file: StaticString
+    let line: UInt
+}
+
+class Environment {
+    static let instance = Environment()
+
+    static let defaultHandler: (String, Location) -> Void = {message, location in
+        XCTFail(message, file: location.file, line: location.line)
     }
+
+    var assertionHandler = Environment.defaultHandler
+
+    func fail(with message: String, location: Location) {
+        assertionHandler(message, location)
+    }
+}
+
+public struct Assertion<T> {
 
     let base: TestableObserver<T>
     let location: Location
@@ -19,7 +34,7 @@ public struct Assertion<T> {
 
     func verify(pass: Bool, message: String) {
         if pass == negated {
-            XCTFail("expected \(negated ? "not" : "") to \(message)", file: location.file, line: location.line)
+            Environment.instance.fail(with: "expected \(negated ? "not " : "")to \(message)", location: location)
         }
     }
 
