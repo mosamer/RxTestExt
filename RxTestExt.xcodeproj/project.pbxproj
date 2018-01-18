@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE8A15752010C1EB002F3519 /* RxTestExt.podspec in Resources */ = {isa = PBXBuildFile; fileRef = CE8A15732010C1EB002F3519 /* RxTestExt.podspec */; };
+		CE8A15762010C1EB002F3519 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = CE8A15742010C1EB002F3519 /* README.md */; };
 		E185A2F3F6B9092E014EA420 /* Pods_RxTestExtTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042BAE27D4E8C9BFC971C249 /* Pods_RxTestExtTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -16,6 +18,8 @@
 		B684AD5FEA09D71D4F815B3D /* Pods-RxTestExtTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxTestExtTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxTestExtTests/Pods-RxTestExtTests.release.xcconfig"; sourceTree = "<group>"; };
 		CE8A15622010BB98002F3519 /* RxTestExtTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RxTestExtTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE8A15692010BB98002F3519 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE8A15732010C1EB002F3519 /* RxTestExt.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RxTestExt.podspec; sourceTree = "<group>"; };
+		CE8A15742010C1EB002F3519 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +54,7 @@
 		CE8A154F2010BB98002F3519 = {
 			isa = PBXGroup;
 			children = (
+				CE8A15772010C1F1002F3519 /* Podspec Metadata */,
 				CE8A15662010BB98002F3519 /* Tests */,
 				CE8A155A2010BB98002F3519 /* Products */,
 				A5633C7A4D70F6FCE39299F6 /* Pods */,
@@ -71,6 +76,15 @@
 				CE8A15692010BB98002F3519 /* Info.plist */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		CE8A15772010C1F1002F3519 /* Podspec Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				CE8A15742010C1EB002F3519 /* README.md */,
+				CE8A15732010C1EB002F3519 /* RxTestExt.podspec */,
+			);
+			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -134,6 +148,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE8A15762010C1EB002F3519 /* README.md in Resources */,
+				CE8A15752010C1EB002F3519 /* RxTestExt.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
