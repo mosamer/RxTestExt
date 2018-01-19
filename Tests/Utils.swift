@@ -1,25 +1,49 @@
 import XCTest
 @testable import RxTestExt
 
-/// Assert if test case failed with a given failure message
-///
-/// - Parameters:
-///   - message: Failure message to check.
-///   - closure: Closure to test.
-func failWithErrorMessage(_ message: String, file: StaticString = #file, line: UInt = #line, closure: @escaping () -> Void) {
+struct AssertionResult {
+
+    private let message: String?
+    private let location: Location
+    init(assertedMessage: String?, location: Location) {
+        self.message = assertedMessage
+        self.location = location
+    }
+
+    private func fail(_ pass: Bool = false, message: String) {
+        if !pass {
+            XCTFail(message, file: location.file, line: location.line)
+        }
+    }
+
+    func toFail(with message: String? = nil) {
+        guard let expectedMessage = message else {
+            fail(self.message != nil, message: "did not fail")
+            return
+        }
+
+        guard let actualMessage = self.message else {
+            fail(message: "did not fail, but expected \"\(expectedMessage)\"")
+            return
+        }
+
+        fail(actualMessage == expectedMessage,
+             message: "got failure message: \"\(actualMessage)\", but expected \"\(expectedMessage)\")")
+    }
+
+    func notToFail() {
+        if message != nil {
+            fail(message: "expected not to fail")
+        }
+    }
+}
+
+func expect(file: StaticString = #file, line: UInt = #line, closure: @escaping () -> Void) -> AssertionResult {
     var assertionMessage: String?
     Environment.instance.assertionHandler = {msg, _ in
         assertionMessage = msg
     }
     closure()
-
-    guard let asserted = assertionMessage else {
-        XCTFail("did not fail", file: file, line: line)
-        return
-    }
-
-    if asserted != message {
-        XCTFail("Got failure message: \"\(asserted)\", but expected \"\(message)\"",
-            file: file, line: line)
-    }
+    return AssertionResult(assertedMessage: assertionMessage,
+                           location: Location(file: file, line: line))
 }

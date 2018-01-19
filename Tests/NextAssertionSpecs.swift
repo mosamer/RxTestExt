@@ -24,14 +24,14 @@ class NextAssertionSpecs: QuickSpec {
             it("assert positive, next event sent") {
                 source.onNext("alpha")
                 scheduler.start()
-                assert(sut).next()
+                expect { assert(sut).next() }
+                    .notToFail()
             }
             it("assert negative, next event not sent") {
-                failWithErrorMessage("expected to next"){
-                    source.onCompleted()
-                    scheduler.start()
-                    assert(sut).next()
-                }
+                source.onCompleted()
+                scheduler.start()
+                expect { assert(sut).next() }
+                    .toFail(with: "expected to next")
             }
         }
 
@@ -39,14 +39,14 @@ class NextAssertionSpecs: QuickSpec {
             it("assert positive, next event sent at time") {
                 scheduler.scheduleAt(10) { source.onNext("alpha") }
                 scheduler.start()
-                assert(sut).next(at: 10)
+                expect { assert(sut).next(at: 10) }
+                    .notToFail()
             }
             it("assert negative, next event sent at different time") {
-                failWithErrorMessage("expected to next at <10>") {
-                    scheduler.scheduleAt(20) { source.onCompleted() }
-                    scheduler.start()
-                    assert(sut).next(at: 10)
-                }
+                scheduler.scheduleAt(20) { source.onCompleted() }
+                scheduler.start()
+                expect { assert(sut).next(at: 10) }
+                    .toFail(with: "expected to next at <10>")
             }
         }
 
@@ -55,15 +55,15 @@ class NextAssertionSpecs: QuickSpec {
                 source.onNext("alpha")
                 source.onNext("bravo")
                 scheduler.start()
-                assert(sut).next(times: 2)
+                expect { assert(sut).next(times: 2) }
+                    .notToFail()
             }
 
             it("assert negative, next event sent 1 time") {
-                failWithErrorMessage("expected to next <2> times, got <1> event(s)") {
-                    source.onNext("alpha")
-                    scheduler.start()
-                    assert(sut).next(times: 2)
-                }
+                source.onNext("alpha")
+                scheduler.start()
+                expect { assert(sut).next(times: 2) }
+                    .toFail(with: "expected to next <2> times, got <1> event(s)")
             }
         }
     }
