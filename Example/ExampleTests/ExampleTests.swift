@@ -94,22 +94,6 @@ class ExampleTests: XCTestCase {
         assert(source).lastNext(equal: "bravo")
     }
 
-    func testNotSentNext() {
-        let events: [Recorded<Event<String>>] = [completed(10)]
-        let source = scheduler.record(source: viewModel.elements)
-        scheduler.bind(events, to: viewModel.input)
-        scheduler.start()
-        assert(source).not.next()
-    }
-
-    func testNotSentNextPublishRelay() {
-        let events: [Recorded<Event<String>>] = [completed(10)]
-        let source = scheduler.record(source: viewModel.publishRelayElements)
-        scheduler.bind(events, to: viewModel.publishRelayInput)
-        scheduler.start()
-        assert(source).not.next()
-    }
-
     func testErrorEvent() {
         let events = [next(10, "alpha"), error(20, TestError())]
         let source = scheduler.record(source: viewModel.elements)

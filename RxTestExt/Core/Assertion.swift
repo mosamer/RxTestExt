@@ -23,6 +23,28 @@ class Environment {
 
 public struct Assertion<T> {
 
+    enum FailureMessage {
+
+        case concise(String)
+        case full(String, String)
+        case exact(String)
+
+        func stringify(as negated: Bool) -> String {
+            var msg = "expected"
+            msg.append(negated ? " not to " : " to ")
+            switch self {
+            case .concise(let message):
+                msg.append(message)
+            case .full(let message, let actual):
+                msg.append(message)
+                msg.append(negated ? ", did " : ", did not ")
+                msg.append(actual)
+            case .exact(let message):
+                msg.append(message)
+            }
+            return msg
+        }
+    }
     let base: TestableObserver<T>
     let location: Location
     let negated: Bool
@@ -30,6 +52,12 @@ public struct Assertion<T> {
         self.base = base
         self.location = Location(file: file, line: line)
         self.negated = negated
+    }
+
+    func verify(pass: Bool, message: FailureMessage) {
+        if pass == negated {
+            Environment.instance.fail(with: message.stringify(as: negated), location: location)
+        }
     }
 
     func verify(pass: Bool, message: String) {
@@ -50,32 +78,6 @@ public struct Assertion<T> {
 
 public func assert<T>(_ source: TestableObserver<T>, file: StaticString = #file, line: UInt = #line) -> Assertion<T> {
     return Assertion(source, file: file, line: line)
-}
-
-// MARK: Next Matchers
-extension Assertion {
-    /// A matcher that succeeds when testable observer received one (or more) next events
-    public func next() {
-        verify(pass: events.first?.value.element != nil,
-               message: "next")
-    }
-
-    /// A matcher that succeeds when testable observer receives a next event at a specific time.
-    ///
-    /// - Parameter time: Expected `next` time.
-    public func next(at time: TestTime) {
-        verify(pass: !events.filter { $0.time == time && $0.value.element != nil }.isEmpty,
-               message: "next at <\(time)>")
-    }
-
-    /// A matcher that succeeds when testable observer recieves a specific number of next events.
-    ///
-    /// - Parameter expectedCount: Expected number of next events.
-    public func next(times expectedCount: Int) {
-        let actualCount = events.filter { $0.value.element != nil }.count
-        verify(pass: actualCount == expectedCount,
-               message: "next <\(expectedCount)> times, got <\(actualCount)> event(s)")
-    }
 }
 
 extension Assertion {

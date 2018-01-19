@@ -20,50 +20,122 @@ class NextAssertionSpecs: QuickSpec {
             scheduler = nil
         }
 
-        describe("Next Event") {
-            it("assert positive, next event sent") {
-                source.onNext("alpha")
-                scheduler.start()
-                expect { assert(sut).next() }
-                    .notToFail()
+        describe("assert next using `next()`") {
+            context("no events sent") {
+                beforeEach {
+                    scheduler.start()
+                }
+                it("fail assert") {
+                    expect { assert(sut).next() }
+                        .toFail(with: "expected to next")
+                }
+                it("pass negated assert") {
+                    expect { assert(sut).not.next() }
+                        .notToFail()
+                }
             }
-            it("assert negative, next event not sent") {
-                source.onCompleted()
-                scheduler.start()
-                expect { assert(sut).next() }
-                    .toFail(with: "expected to next")
+            context("event sent") {
+                beforeEach {
+                    source.onNext("alpha")
+                    scheduler.start()
+                }
+                it("pass assert") {
+                    expect { assert(sut).next() }
+                        .notToFail()
+                }
+                it("fail negated assert") {
+                    expect { assert(sut).not.next() }
+                        .toFail(with: "expected not to next")
+                }
             }
         }
 
-        describe("Next Event @ Time") {
-            it("assert positive, next event sent at time") {
-                scheduler.scheduleAt(10) { source.onNext("alpha") }
-                scheduler.start()
-                expect { assert(sut).next(at: 10) }
+        describe("assert next at specific time using `next(at:)`") {
+            context("no events sent") {
+                beforeEach {
+                    scheduler.start()
+                }
+                it("fail assert") {
+                    expect { assert(sut).next(at: 10) }
+                        .toFail(with: "expected to next @ <10>, did not get any events")
+                }
+                it("pass negated assert") {
+                    expect { assert(sut).not.next(at: 10) }
                     .notToFail()
+                }
             }
-            it("assert negative, next event sent at different time") {
-                scheduler.scheduleAt(20) { source.onCompleted() }
-                scheduler.start()
-                expect { assert(sut).next(at: 10) }
-                    .toFail(with: "expected to next at <10>")
+            context("event sent @ 10") {
+                beforeEach {
+                    scheduler.scheduleAt(10) { source.onNext("alpha") }
+                    scheduler.start()
+                }
+                it("pass assert") {
+                    expect { assert(sut).next(at: 10) }
+                        .notToFail()
+                }
+                it("fail negated assert") {
+                    expect { assert(sut).not.next(at: 10) }
+                        .toFail(with: "expected not to next @ <10>, did get an event")
+                }
+            }
+            context("event sent @ 20") {
+                beforeEach {
+                    scheduler.scheduleAt(20) { source.onNext("alpha") }
+                    scheduler.start()
+                }
+                it("fail assert") {
+                    expect { assert(sut).next(at: 10) }
+                        .toFail(with: "expected to next @ <10>, did not get an event")
+                }
+                it("pass negated assert") {
+                    expect { assert(sut).not.next(at: 10) }
+                        .notToFail()
+                }
             }
         }
 
-        describe("Next Event (n) Times") {
-            it("assert positive, next event sent 2 times") {
-                source.onNext("alpha")
-                source.onNext("bravo")
-                scheduler.start()
-                expect { assert(sut).next(times: 2) }
-                    .notToFail()
+        describe("assert next n times using `next(times:)`") {
+            context("no events sent") {
+                beforeEach {
+                    scheduler.start()
+                }
+                it("fail assert") {
+                    expect { assert(sut).next(times: 1) }
+                        .toFail(with: "expected to next <1> times, did get <0> events")
+                }
+                it("pass negated assert") {
+                    expect { assert(sut).not.next(times: 1) }
+                        .notToFail()
+                }
             }
-
-            it("assert negative, next event sent 1 time") {
-                source.onNext("alpha")
-                scheduler.start()
-                expect { assert(sut).next(times: 2) }
-                    .toFail(with: "expected to next <2> times, got <1> event(s)")
+            context("1 event sent") {
+                beforeEach {
+                    source.onNext("alpha")
+                    scheduler.start()
+                }
+                it("pass assert") {
+                    expect { assert(sut).next(times: 1) }
+                        .notToFail()
+                }
+                it("fail negated assert") {
+                    expect { assert(sut).not.next(times: 1) }
+                        .toFail(with: "expected not to next <1> times, did get <1> events")
+                }
+            }
+            context("2 events sent") {
+                beforeEach {
+                    source.onNext("alpha")
+                    source.onNext("bravo")
+                    scheduler.start()
+                }
+                it("fail assert") {
+                    expect { assert(sut).next(times: 1) }
+                        .toFail(with: "expected to next <1> times, did get <2> events")
+                }
+                it("pass negated assert") {
+                    expect { assert(sut).not.next(times: 1) }
+                        .notToFail()
+                }
             }
         }
     }
