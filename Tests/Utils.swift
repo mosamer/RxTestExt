@@ -47,3 +47,15 @@ func expect(file: StaticString = #file, line: UInt = #line, closure: @escaping (
     return AssertionResult(assertedMessage: assertionMessage,
                            location: Location(file: file, line: line))
 }
+
+//MARK: Test Error
+struct TestError: Error, Equatable {
+    private let message: String
+    init(_ message: String = "any-error") {
+        self.message = message
+    }
+
+    static func == (lhs: TestError, rhs: TestError) -> Bool {
+        return lhs.message == rhs.message
+    }
+}
